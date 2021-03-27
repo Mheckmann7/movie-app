@@ -9,13 +9,17 @@ module.exports = {
 }
 
 async function getMovies(req, res) {
+    let url; 
     try {
-    
-        const { data } = await axios.get(BASE_URL + 'now_playing?region=US&api_key=' + API_KEY)
+        if (req.query.page) {
+            url = `${BASE_URL}now_playing?page=${req.query.page}&region=US&api_key=${API_KEY}`
+        } else {
+            url = `${BASE_URL}now_playing?&region=US&api_key=${API_KEY}`
+        }
+        const { data } = await axios.get(url)
         if (req.query.userid) {
             const favorites = await Favorite.find({ userId: req.query.userid });
             const moviesWithFavorites = markFavorites(favorites, data.results); 
-            //return res.json({ data: dataWithFavorites }); 
             data.results = moviesWithFavorites;
             }
         res.json({ data });

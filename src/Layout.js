@@ -76,6 +76,14 @@ function Layout(props) {
     }
   }
 
+  async function handlePagination(pageNum) {
+    try {
+      console.log(pageNum);
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <StyledLayout>
       <Header user={userData.user} /> 
@@ -85,7 +93,13 @@ function Layout(props) {
         } /> 
         <Route exact path="/movies" render={props => {
           if (!userData.user) return <Redirect to='/' /> 
-          return <IndexPage {...props} nowPlaying={movieData.nowPlaying.results}/>
+          return <IndexPage
+            {...props}
+            nowPlaying={movieData.nowPlaying.results}
+            page={movieData.nowPlaying.page}
+            totalPages={movieData.nowPlaying.total_pages}
+            handlePagination={handlePagination}
+          />
            }
           
         } /> 
