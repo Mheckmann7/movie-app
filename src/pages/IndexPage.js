@@ -43,8 +43,8 @@ export default function IndexPage(props) {
                 }
             </section>
             <section>
-                <button onClick={() => props.handlePagination(props.page)}>Previous</button>
-                <button onClick={() => props.handlePagination(props.page)}>Next</button>
+                <button onClick={() => props.handlePagination(props.page - 1 == 0 ? 1 : props.page - 1)}>Previous</button>
+                <button onClick={() => props.handlePagination(props.page + 1 > props.totalPages ? props.totalPages : props.page + 1)}>Next</button>
             </section>
         </StyledPage>
     );

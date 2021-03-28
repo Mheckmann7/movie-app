@@ -78,7 +78,11 @@ function Layout(props) {
 
   async function handlePagination(pageNum) {
     try {
-      console.log(pageNum);
+      const {data} = await fetchMovies(userData.user.uid, pageNum);
+      setMovieData(prevState => ({
+        ...prevState, 
+        nowPlaying: data
+      }));
     } catch (error) {
       
     }
